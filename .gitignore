@@ -1,0 +1,14 @@
+# DB
+sqlite3.db
+
+# Logs
+*.log
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
