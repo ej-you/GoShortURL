@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Link Shorter</title>
+
+	<link rel="stylesheet" type="text/css" href="../static/css/index.css">
+</head>
+<body>
+	<div class="main">
+		<div class="container">
+			<h1>Сократить ссылку</h1>
+			<p>Введите длинную ссылку ниже и нажмите на кнопку <b>Сократить</b></p>
+
+			<form action="/short" method="post">
+				<input type="text" name="link" id="link" placeholder="Ваша ссылка" required>
+				<button type="submit" name="button" id="button">Сократить</button>
+			</form>
+		</div>
+	</div>
+</body>
+</html>

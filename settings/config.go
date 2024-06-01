@@ -19,6 +19,9 @@ var HostPort string = os.Getenv("HOST_PORT")
 // путь до SQLite3 БД
 var PathDB string = "./db.sqlite3"
 
+var TemplatesPath = "./frontend/templates"
+var StaticPath = "./frontend/static"
+
 // логеры
 var InfoLog *log.Logger = log.New(os.Stdout, "[INFO]\t", log.Ldate|log.Ltime)
 var ErrorLog *log.Logger = log.New(os.Stderr, "[ERROR]\t", log.Ldate|log.Ltime|log.Lshortfile)
