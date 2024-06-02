@@ -3,9 +3,10 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Link Shorter</title>
+	<title>Link Shorter | Index</title>
 
 	<link rel="stylesheet" type="text/css" href="../static/css/index.css">
+	<link rel="icon" type="image/png" href="../static/img/favicon.png">
 </head>
 <body>
 	<div class="main">
@@ -13,9 +14,9 @@
 			<h1>Сократить ссылку</h1>
 			<p>Введите длинную ссылку ниже и нажмите на кнопку <b>Сократить</b></p>
 
-			<form action="/short" method="post">
+			<form action="/create-short-link" method="post">
 				<input type="text" name="link" id="link" placeholder="Ваша ссылка" required>
-				<button type="submit" name="button" id="button">Сократить</button>
+				<button type="submit" id="button">Сократить</button>
 			</form>
 		</div>
 	</div>

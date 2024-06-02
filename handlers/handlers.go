@@ -2,36 +2,88 @@ package handlers
 
 import (
 	"fmt"
-	"html/template"
 	"net/http"
-	"path"
-	"strings"
+	"github.com/gorilla/mux"
 
+	"github.com/Danil-114195722/GoShortURL/exceptions"
+	"github.com/Danil-114195722/GoShortURL/services"
 	"github.com/Danil-114195722/GoShortURL/settings"
 )
 
 
 func Index(response http.ResponseWriter, request *http.Request) {
-	// путь к HMTL файлу
-	indexHtmlPath := path.Join(settings.TemplatesPath, "index.html")
-	// чтение HTML файла
-	html, err := template.ParseFiles(indexHtmlPath)
-	if err != nil {
-		settings.ErrorLog.Printf("Failed to parse template file: %s", indexHtmlPath)
-		http.Error(response, err.Error(), 500)
+	// рендеринг HTML файла
+	err := RenderHTML(response, request, "index.html", nil)
+
+	if err == nil {
+		// даннные запроса
+		remoteHost, fullRequestInfo := services.GetRequestInfo(request)
+		// лог об успешном запросе
+		settings.InfoLog.Printf("Request: %q %d %d (from %s)", fullRequestInfo, 200, request.ContentLength, remoteHost)
+	}
+}
+
+func CreateShortLink(response http.ResponseWriter, request *http.Request) {
+	var err error
+
+	// парсинг формы запроса
+	if err = request.ParseForm(); err != nil {
+		exceptions.FormParseError(response, request)
 		return
 	}
-	// рендеринг HTML файла
-	err = html.Execute(response, nil)
+
+	// достаём ссылку для сокращения из запроса
+	link := request.PostForm["link"][0]
+
+	// проверка ссылки юзера на валидность
+	err = services.CheckLinkIsValid(link)
 	if err != nil {
-		settings.ErrorLog.Printf("Failed to execute template file: %s", indexHtmlPath)
-		http.Error(response, err.Error(), 500)
+		exceptions.InvalidLinkError(response, request)
+		return
 	}
 
-	// удалённый IP
-	remoteHost := strings.Split(request.RemoteAddr, ":")[0]
-	// полная строка запроса с хостом и URI
-	fullURL := fmt.Sprintf("http://%s:%s%s", settings.HostIp, settings.HostPort, request.URL)
-	// лог о запросе
-	settings.InfoLog.Printf("Request: %s (%s) from %s", fullURL, request.Method, remoteHost)
+	// ОБРАБОТКА ССЫЛКИ
+	linkAlias := "g5wo98"
+
+	redirectUrl := fmt.Sprintf("/result?linkAlias=%s", linkAlias)
+	http.Redirect(response, request, redirectUrl, 301)
 }
+
+func Result(response http.ResponseWriter, request *http.Request) {
+	var err error
+
+	// парсинг формы запроса
+	if err = request.ParseForm(); err != nil {
+		exceptions.FormParseError(response, request)
+		return
+	}
+
+	// достаём код для сокращённой ссылки из параметров запроса
+	data := struct {
+		ShortLink string
+	}{
+		ShortLink: fmt.Sprintf("%s/short/%s", settings.HostForShortLink, request.Form["linkAlias"][0]),
+	}
+
+	// рендеринг HTML файла
+	err = RenderHTML(response, request, "result.html", data)
+
+	if err == nil {
+		// даннные запроса
+		remoteHost, fullRequestInfo := services.GetRequestInfo(request)
+		// лог об успешном запросе
+		settings.InfoLog.Printf("Request: %q %d %d (from %s)", fullRequestInfo, 201, request.ContentLength, remoteHost)
+	}
+}
+
+func Short(response http.ResponseWriter, request *http.Request) {
+	vars := mux.Vars(request)
+
+	linkAlias := vars["linkAlias"]
+
+	response.Write([]byte(fmt.Sprintf("Hello, short link %s!", linkAlias)))
+}
+
+// func NotFound404(response http.ResponseWriter, request *http.Request) {
+// 	http.NotFound(response, request)
+// }

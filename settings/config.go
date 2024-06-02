@@ -15,6 +15,8 @@ var _ error = godotenv.Load("./.env")
 // распаковка переменных окружения по переменным
 var HostIp string = os.Getenv("HOST_IP")
 var HostPort string = os.Getenv("HOST_PORT")
+// URL для вывода сокращённой ссылки
+var HostForShortLink string = os.Getenv("HOST_FOR_SHORT_LINK")
 
 // путь до SQLite3 БД
 var PathDB string = "./db.sqlite3"

@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"net/http"
 	"os"
+	"github.com/gorilla/mux"
 
 	"github.com/Danil-114195722/GoShortURL/db"
 	"github.com/Danil-114195722/GoShortURL/handlers"
@@ -23,19 +24,28 @@ func main() {
 		}
 	}
 
+	// маршрутизатор для запросов
+	router := mux.NewRouter()
+
 	// файловый сервер для статики
 	fileServer := http.FileServer(http.Dir("./frontend/static"))
-	http.Handle("/static/", http.StripPrefix("/static/", fileServer))
+	// http.Handle("GET /static/", http.StripPrefix("/static/", fileServer))
+	router.PathPrefix("/static/").Handler(http.StripPrefix("/static/", fileServer)).Methods("GET")
+	router.Handle("/favicon.ico", fileServer).Methods("GET")
 
 	// основные обработчики
-	http.HandleFunc("/", handlers.Index)
+	router.HandleFunc("/", handlers.Index).Methods("GET")
+	router.HandleFunc("/create-short-link", handlers.CreateShortLink).Methods("POST")
+	router.HandleFunc("/result", handlers.Result).Methods("GET")
+	router.HandleFunc("/short/{linkAlias}", handlers.Short).Methods("GET")
+	// http.HandleFunc("/{$}", handlers.NotFound404)
 
 	// на каком хосту запускается
 	addr := fmt.Sprintf("%s:%s", settings.HostIp, settings.HostPort)
 	
 	// лог о запуске сервера с прослушкой настроенного адреса
-	settings.InfoLog.Printf("Start server on %s...\n", addr)
+	settings.InfoLog.Printf("Start server at http://%s/\n", addr)
 
-	err = http.ListenAndServe(addr, nil)
+	err = http.ListenAndServe(addr, router)
 	settings.DieIf(err)
 }
