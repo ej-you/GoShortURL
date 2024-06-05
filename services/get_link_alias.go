@@ -2,11 +2,9 @@ package services
 
 import (
 	"time"
-	"fmt"
 	base62 "github.com/jcoene/go-base62"
 
 	"github.com/Danil-114195722/GoShortURL/db"
-	"github.com/Danil-114195722/GoShortURL/settings"
 )
 
 
@@ -17,15 +15,30 @@ func CreateLinkAlias(userLink string) (string, error) {
 	nowTime := time.Now().UnixMilli()
 	nowTimeBase62 := base62.Encode(nowTime)
 
-	// полная сокращённая ссылка
-	shortLink := fmt.Sprintf("%s/short/%s", settings.HostForShortLink, nowTimeBase62)
-
 	// создание записи в БД
 	newLinkEntry := db.Link{
 		ExternalLink: userLink,
-		RedirectLink: shortLink,
+		LinkAlias: nowTimeBase62,
 	}
 	createResult := dbConnection.Create(&newLinkEntry)
 
 	return nowTimeBase62, createResult.Error
 }
+
+func GetLinkAliasIfEntryExist(externalLink string) (string, error) {
+	dbConnection := db.GetConnection()
+
+	var linkEntry db.Link
+	// получение записи ссылки из БД
+	getResult := dbConnection.Where("external_link = ?", externalLink).Find(&linkEntry)
+	err := getResult.Error
+	
+	if err != nil {
+		return "", err
+	} else {
+		// получение псевддонима ссылки
+		linkAlias := linkEntry.LinkAlias
+		return linkAlias, nil
+	}
+}
+

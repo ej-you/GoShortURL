@@ -25,6 +25,8 @@ func Index(response http.ResponseWriter, request *http.Request) {
 
 func CreateShortLink(response http.ResponseWriter, request *http.Request) {
 	var err error
+	// псевдоним для внешней ссылки
+	var linkAlias string
 
 	// парсинг формы запроса
 	if err = request.ParseForm(); err != nil {
@@ -32,26 +34,30 @@ func CreateShortLink(response http.ResponseWriter, request *http.Request) {
 		return
 	}
 
-	// достаём ссылку для сокращения из запроса
-	link := request.PostForm["link"][0]
+	// достаём внешнюю ссылку для сокращения из запроса
+	externalLink := request.PostForm["link"][0]
 
-	// проверка ссылки юзера на валидность
-	err = services.CheckLinkIsValid(link)
+	// проверка внешней ссылки юзера на валидность
+	err = services.CheckLinkIsValid(externalLink)
 	if err != nil {
 		exceptions.InvalidLinkError(response, request)
 		return
 	}
 
-	// ПРОВЕРКА НА УЖЕ СУЩЕСТВОВАНИЕ СОКРАЩЁННОЙ ССЫЛКИ ДЛЯ ДАННОЙ ЮЗЕРОМ ССЫЛКИ
-
-	// создание псевдонима для данной юзером ссылки
-	var linkAlias string
-
-	// создание записи в БД
-	linkAlias, err = services.CreateLinkAlias(link)
+	// если запись с такой внешней ссылкой ужже есть в БД, то достаём для неё псевдоним
+	linkAlias, err = services.GetLinkAliasIfEntryExist(externalLink)
 	if err != nil {
-		exceptions.CreateLinkEntryError(response, request, err)
+		exceptions.UnknownError(response, request, err)
 		return
+	}
+
+	if len(linkAlias) == 0 {
+		// создание записи в БД
+		linkAlias, err = services.CreateLinkAlias(externalLink)
+		if err != nil {
+			exceptions.CreateLinkEntryError(response, request, err)
+			return
+		}
 	}
 
 	// переадресация для вывода результата
