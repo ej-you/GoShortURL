@@ -42,9 +42,19 @@ func CreateShortLink(response http.ResponseWriter, request *http.Request) {
 		return
 	}
 
-	// ОБРАБОТКА ССЫЛКИ
-	linkAlias := "g5wo98"
+	// ПРОВЕРКА НА УЖЕ СУЩЕСТВОВАНИЕ СОКРАЩЁННОЙ ССЫЛКИ ДЛЯ ДАННОЙ ЮЗЕРОМ ССЫЛКИ
 
+	// создание псевдонима для данной юзером ссылки
+	var linkAlias string
+
+	// создание записи в БД
+	linkAlias, err = services.CreateLinkAlias(link)
+	if err != nil {
+		exceptions.CreateLinkEntryError(response, request, err)
+		return
+	}
+
+	// переадресация для вывода результата
 	redirectUrl := fmt.Sprintf("/result?linkAlias=%s", linkAlias)
 	http.Redirect(response, request, redirectUrl, 301)
 }
@@ -79,11 +89,15 @@ func Result(response http.ResponseWriter, request *http.Request) {
 func Short(response http.ResponseWriter, request *http.Request) {
 	vars := mux.Vars(request)
 
+	// получение псевдонима из запроса
 	linkAlias := vars["linkAlias"]
 
-	response.Write([]byte(fmt.Sprintf("Hello, short link %s!", linkAlias)))
-}
+	// достаём из БД внешнюю ссылку для редиректа
+	externalLink, err := services.GetExternalLink(linkAlias)
+	if err != nil {
+		exceptions.GetExternalLinkError(response, request, err)
+		return
+	}
 
-// func NotFound404(response http.ResponseWriter, request *http.Request) {
-// 	http.NotFound(response, request)
-// }
+	http.Redirect(response, request, externalLink, 301)
+}
