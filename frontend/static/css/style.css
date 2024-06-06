@@ -1,5 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@500&family=Varela+Round&display=swap');
-		
+@import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@500&family=Varela+Round&display=swap');
+
+/* main styles */
+
 body {
 	margin: 0;
 	overflow: hidden;
@@ -75,7 +78,7 @@ body {
 .container form > * {
 	margin: 7px;
 	font-family: "Varela Round", Arial;
-	font-size: 20pt;@import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@500&family=Varela+Round&display=swap');
+	font-size: 20pt;
 	line-height: 32px;
 
 	border: 1px solid black;
@@ -105,6 +108,78 @@ body {
 	transform: scale(1.03);
 	transition: transform 0.75s ease-in-out;
 }
+
+/* just result.html styles */
+
+.result_block {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-evenly;
+}
+
+.short_link_block {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+}
+
+#short_link, .short_more {
+	margin: 7px;
+	font-family: "Varela Round", Arial;
+	line-height: 32px;
+
+	border: 2px solid black;
+	border-radius: 10px;
+}
+
+#short_link {
+	padding: 5px 10px;
+	font-size: 14pt;
+	transition: all 0.75s ease-in-out;
+}
+
+#short_link:hover {
+	transform: scale(1.03);
+	transition: transform 0.75s ease-in-out;
+}
+
+#copy_icon {
+	width: 40px;
+	cursor: pointer;
+
+	transition: all 0.75s ease-in-out;
+}
+
+#copy_icon:hover {
+	transform: scale(1.06);
+	transition: transform 0.75s ease-in-out;
+}
+
+.short_more {
+	display: flex;
+	justify-content: center;
+
+	background: black;
+	text-decoration: none;
+	padding: 5px 10px;
+
+	cursor: pointer;
+	transition: all 0.75s ease-in-out;
+}
+.short_more:hover {
+	transform: scale(1.03);
+	transition: transform 0.75s ease-in-out;
+}
+
+.short_more button {
+	border: none;
+	background: black;
+	color: white;
+	font-size: 18pt;
+
+	cursor: pointer;
+}
+
 
 /* Стили для экранов шириной до 920px */
 @media screen and (max-width: 920px) {
