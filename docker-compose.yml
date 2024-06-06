@@ -1,0 +1,31 @@
+version: '3.8'
+
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: go_url_shorter
+    restart: always
+    env_file:
+      - .env
+    volumes:
+      - sqlite-db:/go/github.com/Danil-114195722/GoShortURL/db.sqlite3:rw
+    ports:
+      - "8085:8085"
+    networks:
+      proj_network:
+        ipv4_address: 172.20.1.5
+
+
+networks:
+  proj_network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.1.0/24
+
+
+volumes:
+  sqlite-db:
