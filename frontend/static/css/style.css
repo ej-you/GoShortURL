@@ -11,9 +11,14 @@ body {
 }
 
 .main {
-	position: relative; 
+	position: relative;
     height: 100vh;
     width: 100%;
+/*
+	position: absolute;
+    height: 100%;
+    width: 100%;*/
+
     display: flex;
     align-items: center;
     justify-content: center;
@@ -23,14 +28,15 @@ body {
 	content: "";
 	background-image: url('../img/background.webp');
 	background-size: cover;
+	background-repeat: none;
 	width: 100%;
 	height: 100%;
 
 	position: absolute;
-	top: 0px;
-	right: 0px;
-	bottom: 0px;
-	left: 0px;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
 	opacity: 0.7;
 }
 
@@ -40,7 +46,7 @@ body {
 
 .container {
 	position: relative;
-	top: 0px;
+	top: 0;
 	right: 0;
 	height:300px;
     width: 700px;
@@ -58,6 +64,7 @@ body {
 
 .container h1 {
 	font-size: 32pt;
+	text-align: center;
 }
 
 .container p {
@@ -181,12 +188,88 @@ body {
 }
 
 
-/* Стили для экранов шириной до 920px */
-@media screen and (max-width: 920px) {
+/* Стили для экранов шириной до 470px */
+@media (max-width: 470px) {
+	.container h1 {
+		font-size: 24pt;
+	}
 
+	.container p {
+		margin: 0 0 30px 0;
+		font-size: 14pt;
+	}
+
+	#link {
+		width: 250px;
+	}
+
+	.short_more button {
+		font-size: 14pt;
+	}
 }
 
-/* Стили для экранов шириной от 920px */
-@media screen and (min-width: 920px) {
-	
+/* Стили для экранов шириной до 500px */
+@media (max-width: 500px) {
+	#short_link {
+		padding: 5px 5px;
+		font-size: 10pt;
+	}
+
+	#copy_icon {
+		width: 30px;
+	}
+}
+
+/* Стили для экранов шириной до 750px */
+@media (max-width: 750px) {
+	.container {
+		top: -100px;
+
+		width: 85%; /* Уменьшение ширины контейнера для маленьких экранов */
+		height: auto; /* Адаптация высоты контейнера */
+		padding: 10px;
+	}
+
+	.container form {
+		flex-direction: column;
+	}
+
+	#link {
+		text-align: center;
+	}
+}
+
+/* Стили для экранов шириной от 750px до 900px */
+@media screen and (min-width: 750px) and (max-width: 900) {
+	.container {
+		top: 0;
+	}
+}
+
+/* Стили для экранов шириной от 900px до 1200px */
+@media screen and (min-width: 900px) and (max-width: 1200px) {
+	.container {
+		top: 100px;
+	}
+}
+
+/* Стили для экранов шириной от 1200px до 1400px */
+@media screen and (min-width: 1200px) and (max-width: 1400px) {
+	.container {
+		top: -150px;
+	}
+}
+
+/* Стили для экранов шириной от 1400px до 1600px */
+@media screen and (min-width: 1400px) and (max-width: 1600px) {
+	.container {
+		top: -180px;
+	}
+}
+
+/* Стили для экранов шириной от 1600px */
+@media screen and (min-width: 1600px) {
+	.container {
+		top: -200px;
+	}
 }

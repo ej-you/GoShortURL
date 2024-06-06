@@ -17,4 +17,4 @@ function copyLink() {
 			copy_icon.style.fill = "black";
 		}, 2000);
     });
-} 
+}
