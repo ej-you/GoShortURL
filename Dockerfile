@@ -7,7 +7,9 @@ RUN apk add make
 RUN mkdir -p ./github.com/Danil-114195722/GoShortURL
 WORKDIR /go/github.com/Danil-114195722/GoShortURL
 
-# copy pproject files to container
+# copy project files to container
 COPY . .
+
+RUN make compile
 
 CMD ["make", "prod"]

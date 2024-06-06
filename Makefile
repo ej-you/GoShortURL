@@ -8,7 +8,9 @@ dev:
 migrate:
 	go run ./main.go migrate
 
-prod:
+compile:
 	go install .
+
+prod:
 	/go/bin/GoShortURL migrate >> $(info_log) 2>> $(error_log)
 	/go/bin/GoShortURL >> $(info_log) 2>> $(error_log)
