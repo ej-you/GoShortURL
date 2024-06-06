@@ -1,9 +1,14 @@
+info_log = "./logs/info-log.log"
+error_log = "./logs/error-log.log"
+
+
 dev:
 	go run ./main.go
 
 migrate:
 	go run ./main.go migrate
 
-# заменить на запуск скомпилированного файла, добавить выполнение в фоне
 prod:
-	go run ./main.go >> ./logs/info-log.log 2>> ./logs/error-log.log
+	go install .
+	/go/bin/GoShortURL migrate >> $(info_log) 2>> $(error_log)
+	/go/bin/GoShortURL >> $(info_log) 2>> $(error_log)
