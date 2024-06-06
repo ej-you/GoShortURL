@@ -1,5 +1,5 @@
-info_log = "./logs/info-log.log"
-error_log = "./logs/error-log.log"
+info_log = "$(GOPATH)/src/github.com/Danil-114195722/GoShortURL/logs/info-log.log"
+error_log = "$(GOPATH)/src/github.com/Danil-114195722/GoShortURL/logs/error-log.log"
 
 
 dev:
@@ -12,5 +12,5 @@ compile:
 	go install .
 
 prod:
-	/go/bin/GoShortURL migrate >> $(info_log) 2>> $(error_log)
-	/go/bin/GoShortURL >> $(info_log) 2>> $(error_log)
+	$(GOPATH)/bin/GoShortURL migrate >> $(info_log) 2>> $(error_log)
+	$(GOPATH)/bin/GoShortURL >> $(info_log) 2>> $(error_log)
