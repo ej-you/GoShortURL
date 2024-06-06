@@ -81,4 +81,9 @@ copy_icon.addEventListener('click', (evt) => {
 
     // Удаляем фейковый элемент
     document.body.removeChild(input);
+
+    copy_icon.style.fill = "green";
+	setTimeout(() => {
+		copy_icon.style.fill = "black";
+	}, 2000);
 });
