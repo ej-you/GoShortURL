@@ -10,4 +10,4 @@ WORKDIR /go/github.com/Danil-114195722/GoShortURL
 # copy pproject files to container
 COPY . .
 
-RUN make prod
+CMD ["make", "prod"]
