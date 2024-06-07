@@ -11,8 +11,8 @@ services:
     env_file:
       - .env
     volumes:
-      - sqlite-db:/go/src/github.com/Danil-114195722/GoShortURL/db.sqlite3:rw
-      - logs:/go/src/github.com/Danil-114195722/GoShortURL/logs:rw
+      - sqlite-db:/root/db.sqlite3:rw
+      - logs:/logs:rw
     ports:
       - "8085:8085"
     networks:
