@@ -1,6 +1,8 @@
 package db
 
 import (
+	"fmt"
+
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 
@@ -10,12 +12,15 @@ import (
 
 // создание таблиц в БД по структурам в GO
 func Migrate() {
+	fmt.Println("Start migration...")
+	
+	fmt.Printf("Connectiong to %q database...\n", settings.PathDB)
 	db := GetConnection()
 
 	err := db.AutoMigrate(&Link{})
 	settings.DieIf(err)
 
-	settings.InfoLog.Println("DB -- Migrated successfully!")
+	fmt.Println("DB -- Migrated successfully!")
 }
 
 // получение соединения с БД

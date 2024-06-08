@@ -4,8 +4,6 @@
 
 FROM golang:1.22.4-alpine3.20 AS build
 
-ENV PATH_DB="/root/db.sqlite3"
-
 # tells the C compiler to enable support for large files, allowing the use
 # of 64-bit versions of file handling functions such as pread64 and pwrite64
 ENV CGO_CFLAGS="-D_LARGEFILE64_SOURCE"
@@ -38,6 +36,8 @@ RUN make compile
 # ---
 
 FROM alpine:3.20 AS run
+
+ENV PATH_DB="/root/db.sqlite3"
 
 # install make util for Makefile
 RUN apk add --no-cache make

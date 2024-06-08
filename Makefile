@@ -12,11 +12,6 @@ compile:
 	go build -o ./GoShortURL ./main.go
 
 prod:
-	#ls /root
-	#ls /
-	#ls /logs
-	#cat $(info_log)
-	#cat $(error_log)
 	@echo "Running migrations..."
 	/root/GoShortURL migrate
 	@echo "Running main app..."
