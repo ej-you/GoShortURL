@@ -49,6 +49,8 @@ WORKDIR /root
 # copy compiled file and Makefile to run app
 COPY --from=build /go/src/github.com/Danil-114195722/GoShortURL/Makefile .
 COPY --from=build /go/src/github.com/Danil-114195722/GoShortURL/GoShortURL .
+# copy frontend files
+COPY --from=build /go/src/github.com/Danil-114195722/GoShortURL/frontend ./frontend
 
 # run app
 CMD ["make", "prod"]
