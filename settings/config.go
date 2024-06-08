@@ -18,8 +18,13 @@ var HostPort string = os.Getenv("HOST_PORT")
 // URL для вывода сокращённой ссылки
 var HostForShortLink string = os.Getenv("HOST_FOR_SHORT_LINK")
 
-// путь до SQLite3 БД
-var PathDB string = "./db.sqlite3"
+// путь до SQLite3 БД - os.Getenv("PATH_DB") || "./db.sqlite3"
+var PathDB = func() string {
+	if env_var := os.Getenv("PATH_DB"); env_var != "" {
+		return env_var
+	}
+	return "./db.sqlite3"
+}()
 
 var TemplatesPath = "./frontend/templates"
 var StaticPath = "./frontend/static"
