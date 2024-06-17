@@ -13,8 +13,8 @@ services:
     volumes:
       - sqlite-db:/root/db/db.sqlite3:rw
       - logs:/logs:rw
-    ports:
-      - "8085:8085"
+    expose:
+      - "8085"
     networks:
       proj_network:
         ipv4_address: 172.20.1.5
