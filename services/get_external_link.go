@@ -1,7 +1,7 @@
 package services
 
 import (
-	"github.com/Danil-114195722/GoShortURL/db"
+	"github.com/ej-you/GoShortURL/db"
 )
 
 

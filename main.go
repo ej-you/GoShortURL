@@ -6,9 +6,9 @@ import (
 	"os"
 	"github.com/gorilla/mux"
 
-	"github.com/Danil-114195722/GoShortURL/db"
-	"github.com/Danil-114195722/GoShortURL/handlers"
-	"github.com/Danil-114195722/GoShortURL/settings"
+	"github.com/ej-you/GoShortURL/db"
+	"github.com/ej-you/GoShortURL/handlers"
+	"github.com/ej-you/GoShortURL/settings"
 )
 
 func main() {

@@ -16,8 +16,8 @@ RUN apk add --no-cache build-base sqlite-dev
 
 # set up workdir
 RUN cd /go/src
-RUN mkdir -p ./github.com/Danil-114195722/GoShortURL
-WORKDIR /go/src/github.com/Danil-114195722/GoShortURL
+RUN mkdir -p ./github.com/ej-you/GoShortURL
+WORKDIR /go/src/github.com/ej-you/GoShortURL
 
 # install dependences
 COPY ./go.mod .
@@ -47,10 +47,10 @@ RUN mkdir /logs
 
 WORKDIR /root
 # copy compiled file and Makefile to run app
-COPY --from=build /go/src/github.com/Danil-114195722/GoShortURL/Makefile .
-COPY --from=build /go/src/github.com/Danil-114195722/GoShortURL/GoShortURL .
+COPY --from=build /go/src/github.com/ej-you/GoShortURL/Makefile .
+COPY --from=build /go/src/github.com/ej-you/GoShortURL/GoShortURL .
 # copy frontend files
-COPY --from=build /go/src/github.com/Danil-114195722/GoShortURL/frontend ./frontend
+COPY --from=build /go/src/github.com/ej-you/GoShortURL/frontend ./frontend
 
 # run app
 CMD ["make", "prod"]

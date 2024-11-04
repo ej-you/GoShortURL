@@ -5,9 +5,9 @@ import (
 	"net/http"
 	"github.com/gorilla/mux"
 
-	"github.com/Danil-114195722/GoShortURL/exceptions"
-	"github.com/Danil-114195722/GoShortURL/services"
-	"github.com/Danil-114195722/GoShortURL/settings"
+	"github.com/ej-you/GoShortURL/exceptions"
+	"github.com/ej-you/GoShortURL/services"
+	"github.com/ej-you/GoShortURL/settings"
 )
 
 

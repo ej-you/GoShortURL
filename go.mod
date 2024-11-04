@@ -1,4 +1,4 @@
-module github.com/Danil-114195722/GoShortURL
+module github.com/ej-you/GoShortURL
 
 go 1.22.2
 

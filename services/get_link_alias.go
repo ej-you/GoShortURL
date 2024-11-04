@@ -4,7 +4,7 @@ import (
 	"time"
 	base62 "github.com/jcoene/go-base62"
 
-	"github.com/Danil-114195722/GoShortURL/db"
+	"github.com/ej-you/GoShortURL/db"
 )
 
 

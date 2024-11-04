@@ -5,8 +5,8 @@ import (
 	"net/http"
 	"path"
 
-	"github.com/Danil-114195722/GoShortURL/settings"
-	"github.com/Danil-114195722/GoShortURL/exceptions"
+	"github.com/ej-you/GoShortURL/settings"
+	"github.com/ej-you/GoShortURL/exceptions"
 )
 
 

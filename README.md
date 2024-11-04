@@ -11,7 +11,7 @@
 1. Clone repo:
 
 ```shell
-git clone https://github.com/Danil-114195722/GoShortURL.git
+git clone https://github.com/ej-you/GoShortURL.git
 ```
 
 2. Add `.env` file (into root of project) and fill it like this:

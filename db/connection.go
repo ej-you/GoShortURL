@@ -6,7 +6,7 @@ import (
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 
-	"github.com/Danil-114195722/GoShortURL/settings"
+	"github.com/ej-you/GoShortURL/settings"
 )
 
 
